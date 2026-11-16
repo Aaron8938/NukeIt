@@ -1,4 +1,10 @@
 @echo off
+rem ---------------------------------------------------------------------------
+rem Keep this file ASCII-only. cmd.exe emits the raw bytes with the OEM codepage,
+rem so any UTF-8 Chinese written here shows up as garbage in the window.
+rem Every Chinese message comes from nuke.py, which writes through the Unicode
+rem console API and is therefore codepage-proof.
+rem ---------------------------------------------------------------------------
 setlocal EnableExtensions
 title NukeIt  -  force delete
 cd /d "%~dp0"
@@ -39,7 +45,7 @@ goto done
 
 :failed
 echo.
-echo   [NukeIt] 有目标没删掉，仔细看上面的提示。
+echo   [NukeIt] some targets were not removed - see the lines above.
 echo.
 pause
 goto done
@@ -48,7 +54,7 @@ goto done
 echo.
 echo   [NukeIt] Python 3 not found on this machine.
 echo   Falling back to minimal mode (cmd rd / del).
-echo   Limits: no locker detection, no reboot-delete, no long path.
+echo   Limits: no locker detection, no reboot-delete, no long path, no clipboard.
 echo.
 set "TGT="
 set /p "TGT=Drop the file or folder here, then press Enter: "
